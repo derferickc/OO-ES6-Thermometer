@@ -42,26 +42,15 @@ class Thermometer {
 	thresholdReachedCheck (_temperatureDirection, _previousCelcius) {
 		// If temperature is moving in the same direction as threshold requirement
 		if (_temperatureDirection === this.thresholdDirection) {
-			// High threshold with increasing direction
 			if (!this.alertThrown) {
+				// High threshold with increasing direction
 				if (this.celcius >= this.thresholdTemperature && _temperatureDirection === 'increase') {
 					return true
+				// Low threshold with decreasing direction
 				} else if (this.celcius <= this.thresholdTemperature && _temperatureDirection === 'decrease') {
 					return true
 				}
-			} else {
-				if (this.alertThrown && _temperatureDirection === 'increase') {
-					if (this.celcius < this.thresholdTemperature + 0.6 && this.celcius > this.thresholdTemperature - 0.6) {
-						return false
-					}
-					return true
-				}
-				if (this.alertThrown && _temperatureDirection === 'decrease') {
-					if (this.celcius < this.thresholdTemperature + 0.6 && this.celcius > this.thresholdTemperature - 0.6) {
-						return false
-					}
-					return true
-				}
+				return false
 			}
 		// If temperature did not change, no alert
 		} else if (_temperatureDirection === 'no change') {
@@ -70,6 +59,13 @@ class Thermometer {
 		} else {
 		// If temperature goes opposite way of threshold direction
 			console.log('temperature direction opposite of threshold direction')
+			if (this.thresholdDirection === 'increase' && this.celcius < this.thresholdTemperature - 0.5) {
+				this.alertThrown = false
+				return false
+			} else if (this.thresholdDirection === 'decrease' && this.celcius > this.thresholdTemperature + 0.5) {
+				this.alertThrown = false
+				return false
+			}
 			return false
 		}
 	}
@@ -80,18 +76,18 @@ class Thermometer {
 	}
 }
 
-let thermostat = new Thermometer(0)
+let thermostat = new Thermometer(10)
 thermostat.setThreshold('boiling', 100, 'increase')
 thermostat.setTemperature(50)
 thermostat.setTemperature(100)
-thermostat.setTemperature(99.6)
-thermostat.setTemperature(100.5)
+thermostat.setTemperature(99.4)
+thermostat.setTemperature(100)
 
 thermostat.setThreshold('freezing', 0, 'decrease')
-thermostat.setTemperature(-1)
-thermostat.setTemperature(0.3)
-thermostat.setTemperature(-.5)
-thermostat.setTemperature(-1)
+thermostat.setTemperature(5)
+thermostat.setTemperature(0)
+thermostat.setTemperature(0.6)
+thermostat.setTemperature(0)
 
-console.log(thermostat.readTemperature())
+// console.log(thermostat.readTemperature())
 // console.log(thermostat)
