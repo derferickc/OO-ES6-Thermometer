@@ -19,14 +19,15 @@ class Thermometer {
 		return `Celcius: ${this.celcius}°, Farenheit: ${this.farenheit}°`
 	}
 
-	setThreshold (_thresholdName, _thresholdTemperature, _thresholdDirection) {
+	setThreshold (_thresholdName, _thresholdTemperature, _thresholdDirection, _significanceFilterBoolean) {
 		this.thresholdName = _thresholdName
 		this.thresholdTemperature = _thresholdTemperature
 		this.thresholdDirection = _thresholdDirection
+		this.significaneFilter = _significanceFilterBoolean
 	}
 
-	toggleInsignificantFilter () {
-		this.significaneFilter = !this.significaneFilter
+	setInsignificantFilter (_boolean) {
+		this.significaneFilter = _boolean
 	}
 
 	setTemperature (_celcius) {
@@ -85,19 +86,18 @@ class Thermometer {
 }
 
 let thermostat = new Thermometer(10)
-thermostat.setThreshold('boiling', 100, 'increase')
-thermostat.setTemperature(50)
-thermostat.setTemperature(100)
-thermostat.toggleInsignificantFilter()
-thermostat.setTemperature(99.4)
-thermostat.setTemperature(99.5)
-// thermostat.toggleInsignificantFilter()
+// thermostat.setThreshold('boiling', 100, 'increase', false)
+// thermostat.setTemperature(50)
+// thermostat.setTemperature(100)
+// thermostat.setTemperature(99.4)
+// thermostat.setTemperature(99.5)
+// thermostat.setInsignificantFilter(true)
 // thermostat.setTemperature(101)
 
 // thermostat.setThreshold('freezing', 0, 'decrease')
 // thermostat.setTemperature(5)
 // thermostat.setTemperature(0)
-// thermostat.toggleInsignificantFilter()
+// thermostat.setInsignificantFilter(false)
 // thermostat.setTemperature(0.6)
 // thermostat.setTemperature(0.5)
 // thermostat.setTemperature(-1)
