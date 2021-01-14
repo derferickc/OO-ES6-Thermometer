@@ -1,5 +1,3 @@
-const { isNull } = require("util")
-
 class Thermometer {
 	constructor (_celcius) {
 		this.celcius = _celcius
@@ -7,7 +5,7 @@ class Thermometer {
 		this.thresholdName = null
 		this.thresholdTemperature = null
 		this.thresholdDirection = null
-		this.significaneFilter = false
+		this.significanceFilter = false
 	}
 
 	updateTemperature (_celcius) {
@@ -23,11 +21,11 @@ class Thermometer {
 		this.thresholdName = _thresholdName
 		this.thresholdTemperature = _thresholdTemperature
 		this.thresholdDirection = _thresholdDirection
-		this.significaneFilter = _significanceFilterBoolean
+		this.significanceFilter = _significanceFilterBoolean
 	}
 
 	setInsignificantFilter (_boolean) {
-		this.significaneFilter = _boolean
+		this.significanceFilter = _boolean
 	}
 
 	setTemperature (_celcius) {
@@ -46,7 +44,7 @@ class Thermometer {
 		// A function to check whether all citeria for sending thresholds have been met
 		if (this.thresholdReachedCheck(temperatureDirection, nextTemperature, temperatureChange)) {
 			// If returns true, send user the threshold reached alert
-			console.log(`The ${this.thresholdName} threshold has been reached!`)
+			return `The ${this.thresholdName} threshold has been reached!`
 		}
 		// Update temperature once threshold checking is complete
 		this.updateTemperature(_celcius)
@@ -59,7 +57,7 @@ class Thermometer {
 			if (_temperatureDirection === "increase") {
 				if (_nextTemperature > this.celcius && _nextTemperature >= this.thresholdTemperature && this.celcius < this.thresholdTemperature) {
 					// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
-					if (this.significaneFilter && this.celcius > this.thresholdTemperature - 0.6) {
+					if (this.significanceFilter && this.celcius > this.thresholdTemperature - 0.6) {
 						return false
 					}
 					return true
@@ -68,7 +66,7 @@ class Thermometer {
 			} else if (_temperatureDirection === "decrease") {
 				if (_nextTemperature < this.celcius && _nextTemperature <= this.thresholdTemperature && this.celcius > this.thresholdTemperature) {
 					// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
-					if (this.significaneFilter && this.celcius < this.thresholdTemperature + 0.6) {
+					if (this.significanceFilter && this.celcius < this.thresholdTemperature + 0.6) {
 						return false
 					}
 					return true
