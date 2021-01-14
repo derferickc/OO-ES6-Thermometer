@@ -43,39 +43,20 @@ class Thermometer {
 		let temperatureDirection = this.getTemperatureDirection(temperatureChange)
 		let nextTemperature = _celcius
 
-		// A function to check whether all citeria for sending thresholds have been met
-		if (this.isThresholdReached(temperatureDirection, nextTemperature, temperatureChange)) {
+		// A function to check if temperature is moving in the same direction as threshold requirement
+		if (this.thresholdTemperatureDirectionMatch(temperatureDirection, nextTemperature, temperatureChange)) {
 			// If returns true, send user the threshold reached alert
+			this.updateTemperature(_celcius)
 			return `The ${this.thresholdName} threshold has been reached!`
 		}
 
-		// Update temperature once threshold checking is complete
 		this.updateTemperature(_celcius)
 	}
 
-	isThresholdReached (_temperatureDirection, _nextTemperature, _temperatureChange) {
-		// If temperature is moving in the same direction as threshold requirement
+	thresholdTemperatureDirectionMatch (_temperatureDirection, _nextTemperature, _temperatureChange) {
 		if (_temperatureDirection === this.thresholdDirection) {
-			// If the temperature direction is increasing
-			if (_temperatureDirection === "increase") {
-				if (_nextTemperature > this.celcius && _nextTemperature >= this.thresholdTemperature && this.celcius < this.thresholdTemperature) {
-					// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
-					if (this.celcius > this.thresholdTemperature - 0.6) {
-						return false
-					}
-					return true
-				}
-			// If the temperature direction is decreasing
-			} else if (_temperatureDirection === "decrease") {
-				if (_nextTemperature < this.celcius && _nextTemperature <= this.thresholdTemperature && this.celcius > this.thresholdTemperature) {
-					// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
-					if (this.significanceFilter && this.celcius < this.thresholdTemperature + 0.6) {
-						return false
-					}
-					return true
-				}
-			}
-			return false
+			// A function to check whether all criteria for sending thresholds have been met
+			return this.areThresholdRequirementsFulfilled(_temperatureDirection, _nextTemperature)
 		// If temperature did not change, no alert
 		} else if (_temperatureDirection === 'no change') {
 			return false
@@ -83,6 +64,33 @@ class Thermometer {
 		// If temperature goes opposite way of threshold direction
 			return false
 		}
+	}
+
+	areThresholdRequirementsFulfilled (_temperatureDirection, _nextTemperature) {
+		// If the temperature direction is increasing
+		if (_temperatureDirection === 'increase') {
+			if (_nextTemperature > this.celcius && _nextTemperature >= this.thresholdTemperature && this.celcius < this.thresholdTemperature) {
+				// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
+				if (this.significanceFilter && this.celcius > this.thresholdTemperature - 0.6) {
+					return false
+				}
+				return true
+			} else {
+				return false
+			}
+		// If the temperature direction is decreasing
+		} else {
+			if (_nextTemperature < this.celcius && _nextTemperature <= this.thresholdTemperature && this.celcius > this.thresholdTemperature) {
+				// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
+				if (this.significanceFilter && this.celcius < this.thresholdTemperature + 0.6) {
+					return false
+				}
+				return true
+			} else {
+				return false
+			}
+		}
+		
 	}
 }
 
@@ -93,12 +101,12 @@ let thermostat = new Thermometer(10)
 // thermostat.setTemperature(99.4)
 // thermostat.setInsignificantFilter(true)
 // thermostat.setTemperature(99.9)
-// thermostat.setTemperature(101)
+// thermostat.setTemperature(102)
 
 // thermostat.setThreshold('freezing', 0, 'decrease')
 // thermostat.setTemperature(5)
 // thermostat.setTemperature(0)
-// thermostat.setInsignificantFilter(false)
+// thermostat.setInsignificantFilter(true)
 // thermostat.setTemperature(0.6)
 // thermostat.setTemperature(0.5)
 // thermostat.setTemperature(-1)
