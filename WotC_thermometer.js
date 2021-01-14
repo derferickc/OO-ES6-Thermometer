@@ -38,28 +38,29 @@ class Thermometer {
 		this.significanceFilter = _boolean
 	}
 
-	async setTemperature (_celcius) {
+	setTemperature (_celcius) {
 		let temperatureChange = this.celcius - _celcius
 		let temperatureDirection = this.getTemperatureDirection(temperatureChange)
 		let nextTemperature = _celcius
 
 		// A function to check whether all citeria for sending thresholds have been met
-		if (await this.isThresholdReached(temperatureDirection, nextTemperature, temperatureChange)) {
+		if (this.isThresholdReached(temperatureDirection, nextTemperature, temperatureChange)) {
 			// If returns true, send user the threshold reached alert
 			return `The ${this.thresholdName} threshold has been reached!`
 		}
+
 		// Update temperature once threshold checking is complete
 		this.updateTemperature(_celcius)
 	}
 
-	async isThresholdReached (_temperatureDirection, _nextTemperature, _temperatureChange) {
+	isThresholdReached (_temperatureDirection, _nextTemperature, _temperatureChange) {
 		// If temperature is moving in the same direction as threshold requirement
 		if (_temperatureDirection === this.thresholdDirection) {
 			// If the temperature direction is increasing
 			if (_temperatureDirection === "increase") {
 				if (_nextTemperature > this.celcius && _nextTemperature >= this.thresholdTemperature && this.celcius < this.thresholdTemperature) {
 					// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
-					if (this.significanceFilter && this.celcius > this.thresholdTemperature - 0.6) {
+					if (this.celcius > this.thresholdTemperature - 0.6) {
 						return false
 					}
 					return true
@@ -90,8 +91,8 @@ let thermostat = new Thermometer(10)
 // thermostat.setTemperature(50)
 // thermostat.setTemperature(100)
 // thermostat.setTemperature(99.4)
-// thermostat.setTemperature(99.5)
 // thermostat.setInsignificantFilter(true)
+// thermostat.setTemperature(99.9)
 // thermostat.setTemperature(101)
 
 // thermostat.setThreshold('freezing', 0, 'decrease')
