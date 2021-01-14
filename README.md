@@ -6,7 +6,7 @@
 
 ## Criteria
 
-- Design and implement a thermometer class or classesthat read the temperature of an external source
+- Design and implement a thermometer class or classes that reads the temperature of an external source
 - Thermometer must be able to provide temperature in Farenheit and Celcius
 - Callers of class(es) are able to define arbitrary thresholds (such as freezing /boiling point) which the thermometer class will alert them that the threshold has been reached
 - Callers may not want insignificant fluctuations (+/- 0.5 °C) to trigger the alert
