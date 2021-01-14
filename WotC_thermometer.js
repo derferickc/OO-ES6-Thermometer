@@ -39,9 +39,9 @@ class Thermometer {
 	}
 
 	setTemperature (_celcius) {
-		let temperatureChange = this.celcius - _celcius
-		let temperatureDirection = this.getTemperatureDirection(temperatureChange)
-		let nextTemperature = _celcius
+		const temperatureChange = this.celcius - _celcius
+		const temperatureDirection = this.getTemperatureDirection(temperatureChange)
+		const nextTemperature = _celcius
 
 		// A function to check if temperature is moving in the same direction as threshold requirement
 		if (this.thresholdTemperatureDirectionMatch(temperatureDirection, nextTemperature, temperatureChange)) {
@@ -49,7 +49,6 @@ class Thermometer {
 			this.updateTemperature(_celcius)
 			return `The ${this.thresholdName} threshold has been reached!`
 		}
-
 		this.updateTemperature(_celcius)
 	}
 
