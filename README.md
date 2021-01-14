@@ -8,9 +8,9 @@
 
 - Design and implement a thermometer class or classes that reads the temperature of an external source
 - Thermometer must be able to provide temperature in Farenheit and Celcius
-- Callers of class(es) are able to define arbitrary thresholds (such as freezing /boiling point) which the thermometer class will alert them that the threshold has been reached
+- Callers of class(es) are able to define arbitrary thresholds (such as freezing /boiling point) which the thermometer class will alert when the threshold has been reached
+- Alerts should only be sent if a threshold was reached from a certain direction (freezing point alert only if temperature is decreasing etc)
 - Callers may not want insignificant fluctuations (+/- 0.5 °C) to trigger the alert
-- Alerts should only be sent if a threshold was reached from a certain direction (freezing point alert only if temperature is decreasing)
 
 ## Properties of Thermometer
 
