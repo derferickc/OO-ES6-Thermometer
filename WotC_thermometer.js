@@ -28,7 +28,7 @@ class Thermometer {
 		this.significanceFilter = _boolean
 	}
 
-	setTemperature (_celcius) {
+	async setTemperature (_celcius) {
 		let temperatureDirection = ''
 		let temperatureChange = this.celcius - _celcius
 		let nextTemperature = _celcius
@@ -42,7 +42,7 @@ class Thermometer {
 		}
 
 		// A function to check whether all citeria for sending thresholds have been met
-		if (this.thresholdReachedCheck(temperatureDirection, nextTemperature, temperatureChange)) {
+		if (await this.isThresholdReached(temperatureDirection, nextTemperature, temperatureChange)) {
 			// If returns true, send user the threshold reached alert
 			return `The ${this.thresholdName} threshold has been reached!`
 		}
@@ -50,7 +50,7 @@ class Thermometer {
 		this.updateTemperature(_celcius)
 	}
 
-	thresholdReachedCheck (_temperatureDirection, _nextTemperature, _temperatureChange) {
+	async isThresholdReached (_temperatureDirection, _nextTemperature, _temperatureChange) {
 		// If temperature is moving in the same direction as threshold requirement
 		if (_temperatureDirection === this.thresholdDirection) {
 			// If the temperature direction is increasing
