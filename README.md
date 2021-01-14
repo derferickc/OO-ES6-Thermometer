@@ -19,4 +19,4 @@
 - thresholdName: arbitrary name of threshold
 - thresholdTemperature: the minimum or maximum temperature (°C) for a threshold based on the direction of temperature
 - thresholdDirection: the direction that the temperature must be moving in in order for threshold alert to be thrown (increase / decrease)
-- significanceFilter: a boolean for whether to filter out insignificant values (+/- 0.5 °Cfrom thresholdTemperature
+- significanceFilter: a boolean for whether to filter out insignificant values (+/- 0.5 °C from thresholdTemperature
