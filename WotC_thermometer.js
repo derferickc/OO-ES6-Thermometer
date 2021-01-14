@@ -71,7 +71,7 @@ class Thermometer {
 		if (_temperatureDirection === 'increase') {
 			if (_nextTemperature > this.celcius && _nextTemperature >= this.thresholdTemperature && this.celcius < this.thresholdTemperature) {
 				// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
-				if (this.significanceFilter && this.celcius > this.thresholdTemperature - 0.6) {
+				if (this.significanceFilter && this.isInsignificantFluctuation(_temperatureDirection)) {
 					return false
 				}
 				return true
@@ -82,7 +82,7 @@ class Thermometer {
 		} else {
 			if (_nextTemperature < this.celcius && _nextTemperature <= this.thresholdTemperature && this.celcius > this.thresholdTemperature) {
 				// If the significance filter is turned on and the previous temperature is within the insignificant range, return false
-				if (this.significanceFilter && this.celcius < this.thresholdTemperature + 0.6) {
+				if (this.significanceFilter && this.isInsignificantFluctuation(_temperatureDirection)) {
 					return false
 				}
 				return true
@@ -90,7 +90,15 @@ class Thermometer {
 				return false
 			}
 		}
-		
+	}
+
+	isInsignificantFluctuation (_temperatureDirection) {
+		if (_temperatureDirection === 'increase' && this.celcius > this.thresholdTemperature - 0.6) {
+			return true
+		} else if (_temperatureDirection === 'increase' && this.celcius < this.thresholdTemperature + 0.6) {
+			return true
+		}
+		return false
 	}
 }
 
@@ -99,7 +107,7 @@ let thermostat = new Thermometer(10)
 // thermostat.setTemperature(50)
 // thermostat.setTemperature(100)
 // thermostat.setTemperature(99.4)
-// thermostat.setInsignificantFilter(true)
+// thermostat.setInsignificantFilter(false)
 // thermostat.setTemperature(99.9)
 // thermostat.setTemperature(102)
 
