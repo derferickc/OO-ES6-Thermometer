@@ -24,22 +24,24 @@ class Thermometer {
 		this.significanceFilter = _significanceFilterBoolean
 	}
 
+	getTemperatureDirection (_temperatureChange) {
+		if (_temperatureChange > 0) {
+			return 'decrease'
+		} else if (_temperatureChange < 0) {
+			return 'increase'
+		} else {
+			return 'no change'
+		}
+	}
+
 	setInsignificantFilter (_boolean) {
 		this.significanceFilter = _boolean
 	}
 
 	async setTemperature (_celcius) {
-		let temperatureDirection = ''
 		let temperatureChange = this.celcius - _celcius
+		let temperatureDirection = this.getTemperatureDirection(temperatureChange)
 		let nextTemperature = _celcius
-
-		if (temperatureChange > 0) {
-			temperatureDirection = 'decrease'
-		} else if (temperatureChange < 0) {
-			temperatureDirection = 'increase'
-		} else {
-			temperatureDirection = 'no change'
-		}
 
 		// A function to check whether all citeria for sending thresholds have been met
 		if (await this.isThresholdReached(temperatureDirection, nextTemperature, temperatureChange)) {
