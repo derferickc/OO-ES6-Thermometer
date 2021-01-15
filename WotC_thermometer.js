@@ -93,16 +93,16 @@ class Thermometer {
 	}
 
 	isInsignificantFluctuation (_temperatureDirection) {
-		// Current is inside of the insignificant range below threshold
+		// Current temperature in °C is inside of the insignificant range below threshold
 		if (_temperatureDirection === 'increase' && this.celcius > this.thresholdTemperature - 0.6) {
 			return true
-		// Current is outside of the insignificant range below threshold
+		// Current temperature in °C is outside of the insignificant range below threshold
 		} else if (_temperatureDirection === 'increase' && this.celcius < this.thresholdTemperature - 0.6) {
 			return false
-		// Current is inside of the insignificant range above threshold
+		// Current temperature in °C is inside of the insignificant range above threshold
 		} else if (_temperatureDirection === 'decrease' && this.celcius < this.thresholdTemperature + 0.6) {
 			return true
-		// Current is outside of the insignificant range above threshold
+		// Current temperature in °C is outside of the insignificant range above threshold
 		} else if (_temperatureDirection === 'decrease' && this.celcius > this.thresholdTemperature + 0.6) {
 			return false
 		}
