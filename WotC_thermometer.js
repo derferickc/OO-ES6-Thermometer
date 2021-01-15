@@ -106,7 +106,6 @@ class Thermometer {
 		} else if (_temperatureDirection === 'decrease' && this.celcius > this.thresholdTemperature + 0.6) {
 			return false
 		}
-		// return false
 	}
 }
 
